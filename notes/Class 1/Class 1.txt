@@ -1,0 +1,11 @@
+New Things:
+
+	chmod
+	float can also be expressed as 2.3e+5 for example
+	think about smallest and biggest numbers re capacity for python
+	non-cognitive and cognitive mind - needed when presenting
+	Data Visualisation
+		D3 is a step above Tableau and is a Javascript lib
+	
+	
+
