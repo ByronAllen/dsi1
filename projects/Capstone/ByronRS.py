@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #Functions
-def ExploreRasterImage(input_file, band_number=1):
+def ExploreRasterImage(input_file, band_number=1, image_height_to_width_ratio=False, show_raster_image=True):
     with rasterio.open(input_file) as src:
         meta_data = src.meta
         band = src.read(band_number)
@@ -15,14 +15,19 @@ def ExploreRasterImage(input_file, band_number=1):
         for i in [x for x in meta_data]:
             print i.upper() + ': ', meta_data[i]
 
-        image_height_to_width_ratio = float(meta_data['height']) / float(meta_data['width'])
-        image_height_to_width_ratio
+        if image_height_to_width_ratio == True:
+            image_height_to_width_ratio = float(meta_data['height']) / float(meta_data['width'])
+            plt.figure(figsize=(25.0*image_height_to_width_ratio,25.0))
+        else:
+            pass
 
-    plt.figure(figsize=(25.0*image_height_to_width_ratio,25.0))
-    plt.imshow(band) #, cmap='gray')
-    plt.show()
-    
-    plt.hist(np.ravel(band), bins=260)
+    if show_raster_image ==True:
+        plt.imshow(band) #, cmap='gray')
+        plt.show()
+    else:
+        pass
+
+    plt.hist(np.ravel(band), bins=270)
     plt.show()
 
 
@@ -75,3 +80,25 @@ def StoreBandinGPD(input_file, band_number):
     print 'Returning dataframe... '
     print
     return band_as_gpd
+
+
+def StoreBandsasArrays(input_file, band_number):
+    try:
+        print '-------------------------------------'
+        print 'Storing bands as arrays...'
+        
+        with rasterio.open(input_file) as src:
+            meta_data = src.meta
+            band = src.read(band_number)
+
+    except:
+        print Exception
+    
+    print 'Returning array... '
+    print
+    return band
+
+
+
+
+
